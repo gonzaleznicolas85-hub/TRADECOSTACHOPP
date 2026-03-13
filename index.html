@@ -1,562 +1,274 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Trade Marketing Chopp Costa · Gestión de Comodatos</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: '#003366',
-            steel: '#5f6b7a',
-            mist: '#f3f6f9',
-            line: '#d7dee7'
-          },
-          boxShadow: {
-            soft: '0 12px 30px rgba(0, 51, 102, 0.10)'
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    html, body { background: #e9eef4; }
-    body { -webkit-font-smoothing: antialiased; }
-    .signature-pad { touch-action: none; }
-    .section-title::before {
-      content: '';
-      display: inline-block;
-      width: .75rem;
-      height: .75rem;
-      border-radius: 999px;
-      background: #003366;
-      margin-right: .5rem;
-      vertical-align: middle;
-    }
-    input, select, textarea {
-      font-size: 16px !important;
-    }
-  </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Trade Marketing Chopp Costa</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+background:#f3f4f6;
+}
+
+canvas{
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+</style>
+
 </head>
-<body class="text-slate-800 min-h-screen">
-  <div class="max-w-7xl mx-auto p-3 sm:p-4 lg:p-8">
-    <header class="bg-gradient-to-r from-navy to-slate-700 text-white rounded-3xl shadow-soft p-5 sm:p-7 mb-5">
-      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <p class="uppercase tracking-[0.28em] text-xs text-slate-200">Trade Marketing Chopp Costa</p>
-          <h1 class="text-2xl sm:text-3xl font-bold mt-1">Sistema Digital de Gestión de Comodatos</h1>
-          <p class="text-sm sm:text-base text-slate-100/90 mt-2">Formulario único para comodatos de equipo de choperas .</p>
-        </div>
-        <div class="bg-white/10 rounded-2xl p-4 border border-white/15 text-sm">
-          <div class="font-semibold">Estado de conexión</div>
-          <div id="connectionStatus" class="text-slate-100 mt-1">Configurar URL de Apps Script</div>
-          <div class="text-slate-200 text-xs mt-2">Comodato N°: <span id="headerComodato">TCC-00001</span></div>
-        </div>
-      </div>
-    </header>
 
-    <div id="alertBox" class="hidden mb-4 rounded-2xl px-4 py-3 text-sm"></div>
 
-    <form id="comodatoForm" class="space-y-5">
-      <section class="bg-white rounded-3xl shadow-soft p-4 sm:p-6 border border-line">
-        <h2 class="section-title text-lg sm:text-xl font-bold text-navy mb-4">1. Logística</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-          <div>
-            <label class="block text-sm font-semibold mb-1">Fecha</label>
-            <input id="fecha" type="date" class="w-full rounded-xl border border-line px-3 py-2.5 bg-white" required>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Comodato N°</label>
-            <input id="comodatoNumero" type="text" class="w-full rounded-xl border border-line px-3 py-2.5 bg-slate-50 font-semibold" readonly>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Técnico</label>
-            <input id="tecnico" type="text" class="w-full rounded-xl border border-line px-3 py-2.5" required>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Distribuidor</label>
-            <select id="distribuidor" class="w-full rounded-xl border border-line px-3 py-2.5" required>
-              <option value="">Seleccionar…</option>
-              <option>BEBIDAS CENTRO S.A.</option>
-              <option>BEBIDAS DEL MAR S.A.</option>
-              <option>BEER TAN S.A.</option>
-              <option>CLOMAR LOGISTICS S.A.</option>
-              <option>COMERCIAL DE LOS ARROYOS S.A.</option>
-              <option>COMERCIAL DEL MAR SA</option>
-              <option>DEL PALACIO S.A.</option>
-              <option>GALUPO S.A.</option>
-              <option>GRUPO PEREZ SRL</option>
-              <option>NECOCHEA PAMPA ALTA S.A.</option>
-              <option>P D B SRL</option>
-              <option>PAGANI RUBEN OSVALDO</option>
-              <option>PUERTA DEL SUR S.A.</option>
-              <option>VALPARAISO EMB. S.A</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Cod. Cliente</label>
-            <input id="codCliente" type="text" class="w-full rounded-xl border border-line px-3 py-2.5">
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">CUIT</label>
-            <input id="cuit" type="text" placeholder="30-12345678-9" class="w-full rounded-xl border border-line px-3 py-2.5">
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Nombre Fantasía</label>
-            <input id="nombreFantasia" type="text" class="w-full rounded-xl border border-line px-3 py-2.5">
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Razón Social</label>
-            <input id="razonSocial" type="text" class="w-full rounded-xl border border-line px-3 py-2.5">
-          </div>
-          <div class="md:col-span-2 xl:col-span-2">
-            <label class="block text-sm font-semibold mb-1">Domicilio</label>
-            <input id="domicilio" type="text" class="w-full rounded-xl border border-line px-3 py-2.5">
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Localidad</label>
-            <input id="localidad" type="text" class="w-full rounded-xl border border-line px-3 py-2.5">
-          </div>
-        </div>
-      </section>
+<body class="p-6">
 
-      <section class="bg-white rounded-3xl shadow-soft p-4 sm:p-6 border border-line">
-        <h2 class="section-title text-lg sm:text-xl font-bold text-navy mb-4">2. Equipo</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-          <div><label class="block text-sm font-semibold mb-1">Marca</label><input id="marca" type="text" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Modelo</label><input id="modelo" type="text" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Activo Fijo</label><input id="activoFijo" type="text" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Serie</label><input id="serie" type="text" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-        </div>
-      </section>
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
 
-      <section class="bg-white rounded-3xl shadow-soft p-4 sm:p-6 border border-line">
-        <h2 class="section-title text-lg sm:text-xl font-bold text-navy mb-4">3. Materiales y Especiales</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
-          <div><label class="block text-sm font-semibold mb-1">Reg. Cornelius</label><input id="regCornelius" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Reg. Mafridis</label><input id="regMafridis" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Llave Mixta</label><input id="llaveMixta" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Cabezal MM</label><input id="cabezalMM" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Manguera Cerveza</label><input id="mangueraCerveza" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Manguera Python</label><input id="mangueraPython" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Canilla Niquelada</label><input id="canillaNiquelada" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Canilla Agua</label><input id="canillaAgua" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Transformador</label><input id="transformador" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Separadores Canilla</label><input id="separadoresCanilla" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Conector Vasera</label><input id="conectorVasera" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Cant. Picos</label><input id="cantPicos" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Medallones</label><input id="medallones" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Tubo Gas</label><input id="tuboGas" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Vasera Rinser</label><input id="vaseraRinser" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Rinser</label><input id="rinser" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div><label class="block text-sm font-semibold mb-1">Manguera Desagüe</label><input id="mangueraDesague" type="number" min="0" value="0" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-        </div>
+<h1 class="text-2xl font-bold mb-4 text-blue-900">
+Sistema de Comodatos – Chopp Costa
+</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-5 pt-5 border-t border-line">
-          <div><label class="block text-sm font-semibold mb-1">Handle</label><input id="handle" type="text" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Celli</label>
-            <select id="celli" class="w-full rounded-xl border border-line px-3 py-2.5">
-              <option value="">Seleccionar…</option>
-              <option>DORADA</option>
-              <option>NIQUELADA</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Vasera</label>
-            <select id="vasera" class="w-full rounded-xl border border-line px-3 py-2.5">
-              <option value="">Seleccionar…</option>
-              <option>CERVECERA</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-semibold mb-1">Pilon</label>
-            <select id="pilon" class="w-full rounded-xl border border-line px-3 py-2.5">
-              <option value="">Seleccionar…</option>
-              <option>BRAHAUS 3 VIAS</option>
-              <option>BRAHAUS 4 VIAS</option>
-              <option>BRAHAUS 6 VIAS</option>
-              <option>EOS 3 VIAS</option>
-              <option>EOS 1 VIA</option>
-              <option>HAVANNA</option>
-              <option>MAGIC</option>
-              <option>ROMANTIC</option>
-              <option>AZUR</option>
-              <option>CUELLO CISNE</option>
-              <option>CERAMICO</option>
-              <option>OTROS</option>
-            </select>
-          </div>
-          <div id="pilonOtrosWrap" class="hidden">
-            <label class="block text-sm font-semibold mb-1">Descripción Pilon (Otros)</label>
-            <input id="pilonOtros" type="text" class="w-full rounded-xl border border-line px-3 py-2.5" placeholder="Describir opción elegida">
-          </div>
-          <div><label class="block text-sm font-semibold mb-1">Cabezal</label><input id="cabezal" type="text" class="w-full rounded-xl border border-line px-3 py-2.5"></div>
-          <div class="md:col-span-2 xl:col-span-3">
-            <label class="block text-sm font-semibold mb-1">Descripción</label>
-            <textarea id="descripcion" rows="4" class="w-full rounded-xl border border-line px-3 py-2.5" placeholder="Observaciones del comodato, estado del equipo, faltantes, notas del técnico, etc."></textarea>
-          </div>
-        </div>
-      </section>
+<form id="comodatoForm" class="space-y-6">
 
-      <section class="bg-white rounded-3xl shadow-soft p-4 sm:p-6 border border-line">
-        <h2 class="section-title text-lg sm:text-xl font-bold text-navy mb-4">4. Cierre y Firma</h2>
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-5">
-          <div class="xl:col-span-2">
-            <label class="block text-sm font-semibold mb-2">Firma digital</label>
-            <div class="rounded-2xl border border-line bg-mist overflow-hidden">
-              <canvas id="signatureCanvas" class="signature-pad block w-full h-[220px] sm:h-[260px] bg-white"></canvas>
-            </div>
-            <div class="flex flex-wrap gap-2 mt-3">
-              <button type="button" id="clearSignature" class="rounded-xl bg-slate-100 hover:bg-slate-200 border border-line px-4 py-2 text-sm font-semibold">Limpiar firma</button>
-              <span class="text-xs text-slate-500 self-center">Usá el dedo o mouse. La firma se conserva al redimensionar.</span>
-            </div>
-          </div>
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-semibold mb-1">Aclaración</label>
-              <input id="aclaracion" type="text" class="w-full rounded-xl border border-line px-3 py-2.5" required>
-            </div>
-            <div>
-              <label class="block text-sm font-semibold mb-1">DNI</label>
-              <input id="dni" type="text" class="w-full rounded-xl border border-line px-3 py-2.5" required>
-            </div>
-            <div class="rounded-2xl bg-slate-50 border border-line p-4 text-sm">
-              <div class="font-bold text-navy">Resumen rápido</div>
-              <ul class="mt-2 space-y-1 text-slate-600">
-                <li>• Guarda en Google Sheets</li>
-                <li>• Genera PDF desde template</li>
-                <li>• Sube firma PNG a Drive</li>
-                <li>• Evita doble envío</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+<div class="grid grid-cols-2 gap-4">
 
-      <section class="bg-white rounded-3xl shadow-soft p-4 sm:p-6 border border-line">
-        <h2 class="section-title text-lg sm:text-xl font-bold text-navy mb-4">5. Acciones</h2>
-        <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-          <p class="text-sm text-slate-600">Al enviar se registrará el comodato, se guardará la firma y se generará un PDF en Drive.</p>
-          <div class="flex flex-col sm:flex-row gap-3">
-            <button id="refreshNumberBtn" type="button" class="rounded-2xl border border-line bg-white px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50">Actualizar N°</button>
-            <button id="submitBtn" type="submit" class="rounded-2xl bg-navy text-white px-6 py-3 font-bold hover:opacity-95 disabled:opacity-60">Guardar comodato</button>
-          </div>
-        </div>
-      </section>
-    </form>
-  </div>
+<div>
+<label class="text-sm font-semibold">Fecha</label>
+<input id="fecha" type="date" class="w-full border p-2 rounded"/>
+</div>
 
-  <div id="successModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm p-4 z-50">
-    <div class="max-w-lg mx-auto mt-16 sm:mt-24 bg-white rounded-3xl shadow-soft p-6">
-      <div class="text-navy text-xl font-bold">Comodato generado correctamente</div>
-      <div id="successContent" class="mt-3 text-sm text-slate-600 space-y-2"></div>
-      <div class="mt-5 flex gap-3 justify-end">
-        <button id="closeModalBtn" class="rounded-2xl bg-navy text-white px-5 py-3 font-semibold">Cerrar</button>
-      </div>
-    </div>
-  </div>
+<div>
+<label class="text-sm font-semibold">Comodato Nº</label>
+<input id="comodatoNumero" readonly class="w-full border p-2 rounded bg-gray-100"/>
+</div>
 
-  <script>
-    const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbadXv4EYTRo-OyKkvnsTCubbrJjM1QpICJRDcJPQRkOXHB1MPCDGrehMFGYbpHOFj/exec';
-    const form = document.getElementById('comodatoForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const refreshNumberBtn = document.getElementById('refreshNumberBtn');
-    const alertBox = document.getElementById('alertBox');
-    const connectionStatus = document.getElementById('connectionStatus');
-    const comodatoNumeroInput = document.getElementById('comodatoNumero');
-    const headerComodato = document.getElementById('headerComodato');
-    const pilonSelect = document.getElementById('pilon');
-    const pilonOtrosWrap = document.getElementById('pilonOtrosWrap');
-    const pilonOtrosInput = document.getElementById('pilonOtros');
-    const modal = document.getElementById('successModal');
-    const successContent = document.getElementById('successContent');
+<div>
+<label>Técnico</label>
+<input id="tecnico" class="w-full border p-2 rounded"/>
+</div>
 
-    const canvas = document.getElementById('signatureCanvas');
-    const ctx = canvas.getContext('2d');
-    let drawing = false;
-    let hasSignature = false;
-    let signatureSnapshot = null;
+<div>
+<label>Distribuidor</label>
+<input id="distribuidor" class="w-full border p-2 rounded"/>
+</div>
 
-    function setToday() {
-      const now = new Date();
-      const yyyy = now.getFullYear();
-      const mm = String(now.getMonth() + 1).padStart(2, '0');
-      const dd = String(now.getDate()).padStart(2, '0');
-      document.getElementById('fecha').value = `${yyyy}-${mm}-${dd}`;
-    }
+<div>
+<label>CUIT</label>
+<input id="cuit" class="w-full border p-2 rounded"/>
+</div>
 
-    function showAlert(message, type = 'info') {
-      const styles = {
-        info: 'bg-blue-50 text-blue-800 border border-blue-200',
-        success: 'bg-emerald-50 text-emerald-800 border border-emerald-200',
-        error: 'bg-red-50 text-red-800 border border-red-200'
-      };
-      alertBox.className = `${styles[type] || styles.info} mb-4 rounded-2xl px-4 py-3 text-sm`;
-      alertBox.textContent = message;
-      alertBox.classList.remove('hidden');
-    }
+<div>
+<label>Nombre Fantasía</label>
+<input id="nombreFantasia" class="w-full border p-2 rounded"/>
+</div>
 
-    function hideAlert() {
-      alertBox.classList.add('hidden');
-    }
+<div>
+<label>Razón Social</label>
+<input id="razonSocial" class="w-full border p-2 rounded"/>
+</div>
 
-    function setConnectionStatus() {
-      if (!APP_SCRIPT_URL || APP_SCRIPT_URL.includes('PEGAR_URL_APPS_SCRIPT_AQUI')) {
-        connectionStatus.textContent = 'Falta pegar la URL del Apps Script';
-        connectionStatus.className = 'text-amber-200 mt-1';
-      } else {
-        connectionStatus.textContent = 'URL de Apps Script configurada';
-        connectionStatus.className = 'text-emerald-200 mt-1';
-      }
-    }
+<div>
+<label>Domicilio</label>
+<input id="domicilio" class="w-full border p-2 rounded"/>
+</div>
 
-    function getPointerPosition(event) {
-      const rect = canvas.getBoundingClientRect();
-      const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-      const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-      return {
-        x: clientX - rect.left,
-        y: clientY - rect.top
-      };
-    }
+<div>
+<label>Localidad</label>
+<input id="localidad" class="w-full border p-2 rounded"/>
+</div>
 
-    function resizeCanvasPreservingSignature() {
-      if (canvas.width > 0 && canvas.height > 0) {
-        try {
-          signatureSnapshot = canvas.toDataURL('image/png');
-        } catch (_) {}
-      }
-      const ratio = Math.max(window.devicePixelRatio || 1, 1);
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * ratio;
-      canvas.height = rect.height * ratio;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(ratio, ratio);
-      ctx.lineWidth = 2.2;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.strokeStyle = '#0f172a';
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, rect.width, rect.height);
-      if (signatureSnapshot) {
-        const img = new Image();
-        img.onload = function() {
-          ctx.drawImage(img, 0, 0, rect.width, rect.height);
-        };
-        img.src = signatureSnapshot;
-      }
-    }
+</div>
 
-    function beginDraw(event) {
-      drawing = true;
-      const pos = getPointerPosition(event);
-      ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
-      event.preventDefault();
-    }
 
-    function draw(event) {
-      if (!drawing) return;
-      const pos = getPointerPosition(event);
-      ctx.lineTo(pos.x, pos.y);
-      ctx.stroke();
-      hasSignature = true;
-      event.preventDefault();
-    }
+<div>
 
-    function endDraw(event) {
-      if (!drawing) return;
-      drawing = false;
-      ctx.closePath();
-      try {
-        signatureSnapshot = canvas.toDataURL('image/png');
-      } catch (_) {}
-      if (event) event.preventDefault();
-    }
+<label class="font-semibold">Firma</label>
 
-    function clearSignature() {
-      signatureSnapshot = null;
-      hasSignature = false;
-      resizeCanvasPreservingSignature();
-    }
+<canvas id="signature" width="400" height="200"></canvas>
 
-    function toInt(id) {
-      const value = document.getElementById(id).value;
-      return Number.isFinite(Number(value)) ? Number(value) : 0;
-    }
+<button type="button" onclick="clearSignature()" class="text-sm text-red-600">
+Limpiar firma
+</button>
 
-    function currentPilonValue() {
-      return pilonSelect.value === 'OTROS'
-        ? `OTROS - ${pilonOtrosInput.value.trim()}`.trim()
-        : pilonSelect.value;
-    }
+</div>
 
-    function getPayload() {
-      return {
-        fecha: document.getElementById('fecha').value,
-        comodatoNumero: document.getElementById('comodatoNumero').value,
-        tecnico: document.getElementById('tecnico').value.trim(),
-        distribuidor: document.getElementById('distribuidor').value,
-        codCliente: document.getElementById('codCliente').value.trim(),
-        cuit: document.getElementById('cuit').value.trim(),
-        nombreFantasia: document.getElementById('nombreFantasia').value.trim(),
-        razonSocial: document.getElementById('razonSocial').value.trim(),
-        domicilio: document.getElementById('domicilio').value.trim(),
-        localidad: document.getElementById('localidad').value.trim(),
-        marca: document.getElementById('marca').value.trim(),
-        modelo: document.getElementById('modelo').value.trim(),
-        activoFijo: document.getElementById('activoFijo').value.trim(),
-        serie: document.getElementById('serie').value.trim(),
-        regCornelius: toInt('regCornelius'),
-        regMafridis: toInt('regMafridis'),
-        llaveMixta: toInt('llaveMixta'),
-        cabezalMM: toInt('cabezalMM'),
-        mangueraCerveza: toInt('mangueraCerveza'),
-        mangueraPython: toInt('mangueraPython'),
-        canillaNiquelada: toInt('canillaNiquelada'),
-        canillaAgua: toInt('canillaAgua'),
-        transformador: toInt('transformador'),
-        separadoresCanilla: toInt('separadoresCanilla'),
-        conectorVasera: toInt('conectorVasera'),
-        cantPicos: toInt('cantPicos'),
-        medallones: toInt('medallones'),
-        tuboGas: toInt('tuboGas'),
-        vaseraRinser: toInt('vaseraRinser'),
-        rinser: toInt('rinser'),
-        mangueraDesague: toInt('mangueraDesague'),
-        handle: document.getElementById('handle').value.trim(),
-        celli: document.getElementById('celli').value,
-        vasera: document.getElementById('vasera').value,
-        pilon: currentPilonValue(),
-        pilonOtros: pilonSelect.value === 'OTROS' ? pilonOtrosInput.value.trim() : '',
-        cabezal: document.getElementById('cabezal').value.trim(),
-        descripcion: document.getElementById('descripcion').value.trim(),
-        aclaracion: document.getElementById('aclaracion').value.trim(),
-        dni: document.getElementById('dni').value.trim(),
-        firmaDataUrl: hasSignature ? canvas.toDataURL('image/png') : '',
-        userAgent: navigator.userAgent,
-        submittedAt: new Date().toISOString(),
-        appVersion: 'TCC-WEB-V2'
-      };
-    }
 
-    function validateForm(payload) {
-      if (!payload.fecha || !payload.comodatoNumero || !payload.tecnico || !payload.distribuidor) {
-        return 'Completá los datos obligatorios de logística.';
-      }
-      if (!payload.aclaracion || !payload.dni) {
-        return 'Completá aclaración y DNI.';
-      }
-      if (!payload.firmaDataUrl) {
-        return 'La firma digital es obligatoria.';
-      }
-      if (pilonSelect.value === 'OTROS' && !pilonOtrosInput.value.trim()) {
-        return 'Describí el valor de Pilon cuando elegís OTROS.';
-      }
-      return '';
-    }
+<div class="grid grid-cols-2 gap-4">
 
-    async function loadNextNumber() {
-      if (!APP_SCRIPT_URL || APP_SCRIPT_URL.includes('PEGAR_URL_APPS_SCRIPT_AQUI')) {
-        const fallback = 'TCC-00001';
-        comodatoNumeroInput.value = fallback;
-        headerComodato.textContent = fallback;
-        return;
-      }
-      try {
-        const url = `${APP_SCRIPT_URL}?action=nextNumber&_=${Date.now()}`;
-        const response = await fetch(url, { method: 'GET' });
-        const data = await response.json();
-        const number = data.comodatoNumero || 'TCC-00001';
-        comodatoNumeroInput.value = number;
-        headerComodato.textContent = number;
-      } catch (error) {
-        const fallback = 'TCC-00001';
-        comodatoNumeroInput.value = fallback;
-        headerComodato.textContent = fallback;
-        showAlert('No se pudo obtener el siguiente número desde Apps Script. Se muestra un valor provisorio.', 'info');
-      }
-    }
+<div>
+<label>Aclaración</label>
+<input id="aclaracion" class="w-full border p-2 rounded"/>
+</div>
 
-    async function submitForm(event) {
-      event.preventDefault();
-      hideAlert();
-      const payload = getPayload();
-      const validationError = validateForm(payload);
-      if (validationError) {
-        showAlert(validationError, 'error');
-        return;
-      }
-      if (!APP_SCRIPT_URL || APP_SCRIPT_URL.includes('PEGAR_URL_APPS_SCRIPT_AQUI')) {
-        showAlert('Primero tenés que pegar la URL del Apps Script dentro del index.html.', 'error');
-        return;
-      }
+<div>
+<label>DNI</label>
+<input id="dni" class="w-full border p-2 rounded"/>
+</div>
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Guardando…';
+</div>
 
-      try {
-        const response = await fetch(APP_SCRIPT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        });
-        const data = await response.json();
-        if (!data.ok) throw new Error(data.message || 'No se pudo guardar el comodato.');
 
-        successContent.innerHTML = `
-          <div><strong>N°:</strong> ${data.comodatoNumero || payload.comodatoNumero}</div>
-          <div><strong>Fila:</strong> ${data.rowNumber || '-'}</div>
-          <div><strong>PDF:</strong> ${data.pdfUrl ? `<a class="text-navy underline" href="${data.pdfUrl}" target="_blank" rel="noopener">Abrir PDF</a>` : 'Generado'}</div>
-          <div><strong>Firma:</strong> ${data.signatureUrl ? `<a class="text-navy underline" href="${data.signatureUrl}" target="_blank" rel="noopener">Abrir firma</a>` : 'Guardada'}</div>
-        `;
-        modal.classList.remove('hidden');
-        showAlert('Comodato guardado correctamente.', 'success');
-        form.reset();
-        setToday();
-        clearSignature();
-        pilonOtrosWrap.classList.add('hidden');
-        pilonOtrosInput.value = '';
-        await loadNextNumber();
-      } catch (error) {
-        showAlert(`Error al guardar: ${error.message}`, 'error');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Guardar comodato';
-      }
-    }
+<button type="submit"
+class="bg-blue-900 text-white px-6 py-3 rounded w-full">
 
-    pilonSelect.addEventListener('change', () => {
-      const show = pilonSelect.value === 'OTROS';
-      pilonOtrosWrap.classList.toggle('hidden', !show);
-      if (!show) pilonOtrosInput.value = '';
-    });
+Guardar Comodato
 
-    document.getElementById('clearSignature').addEventListener('click', clearSignature);
-    form.addEventListener('submit', submitForm);
-    refreshNumberBtn.addEventListener('click', loadNextNumber);
-    document.getElementById('closeModalBtn').addEventListener('click', () => modal.classList.add('hidden'));
+</button>
 
-    canvas.addEventListener('mousedown', beginDraw);
-    canvas.addEventListener('mousemove', draw);
-    window.addEventListener('mouseup', endDraw);
-    canvas.addEventListener('mouseleave', endDraw);
+</form>
 
-    canvas.addEventListener('touchstart', beginDraw, { passive: false });
-    canvas.addEventListener('touchmove', draw, { passive: false });
-    canvas.addEventListener('touchend', endDraw, { passive: false });
-    canvas.addEventListener('touchcancel', endDraw, { passive: false });
+</div>
 
-    window.addEventListener('resize', resizeCanvasPreservingSignature);
 
-    setToday();
-    setConnectionStatus();
-    resizeCanvasPreservingSignature();
-    loadNextNumber();
-  </script>
+<script>
+
+const API_URL = "https://script.google.com/macros/s/AKfycbwbadXv4EYTRo-OyKkvnsTCubbrJjM1QpICJRDcJPQRkOXHB1MPCDGrehMFGYbpHOFj/exec";
+
+
+/* fecha actual */
+
+document.getElementById("fecha").valueAsDate = new Date();
+
+
+/* obtener numero comodato */
+
+async function getNextNumber(){
+
+const res = await fetch(API_URL+"?action=nextNumber");
+
+const data = await res.json();
+
+document.getElementById("comodatoNumero").value = data.comodatoNumero;
+
+}
+
+getNextNumber();
+
+
+/* firma */
+
+let canvas = document.getElementById("signature");
+let ctx = canvas.getContext("2d");
+
+let drawing = false;
+
+canvas.addEventListener("mousedown",start);
+canvas.addEventListener("mouseup",stop);
+canvas.addEventListener("mousemove",draw);
+
+canvas.addEventListener("touchstart",start);
+canvas.addEventListener("touchend",stop);
+canvas.addEventListener("touchmove",draw);
+
+function start(e){
+drawing = true;
+draw(e);
+}
+
+function stop(){
+drawing = false;
+ctx.beginPath();
+}
+
+function draw(e){
+
+if(!drawing) return;
+
+e.preventDefault();
+
+let rect = canvas.getBoundingClientRect();
+
+let x = (e.touches?e.touches[0].clientX:e.clientX) - rect.left;
+let y = (e.touches?e.touches[0].clientY:e.clientY) - rect.top;
+
+ctx.lineWidth = 2;
+ctx.lineCap = "round";
+
+ctx.lineTo(x,y);
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(x,y);
+
+}
+
+function clearSignature(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+}
+
+
+
+/* enviar formulario */
+
+document.getElementById("comodatoForm").addEventListener("submit",async function(e){
+
+e.preventDefault();
+
+const firmaDataUrl = canvas.toDataURL();
+
+const payload = {
+
+fecha:document.getElementById("fecha").value,
+
+tecnico:document.getElementById("tecnico").value,
+
+distribuidor:document.getElementById("distribuidor").value,
+
+cuit:document.getElementById("cuit").value,
+
+nombreFantasia:document.getElementById("nombreFantasia").value,
+
+razonSocial:document.getElementById("razonSocial").value,
+
+domicilio:document.getElementById("domicilio").value,
+
+localidad:document.getElementById("localidad").value,
+
+aclaracion:document.getElementById("aclaracion").value,
+
+dni:document.getElementById("dni").value,
+
+firmaDataUrl:firmaDataUrl,
+
+userAgent:navigator.userAgent,
+
+submittedAt:new Date().toISOString()
+
+};
+
+
+const res = await fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify(payload)
+
+});
+
+const data = await res.json();
+
+if(data.ok){
+
+alert("Comodato guardado ✔");
+
+window.location.reload();
+
+}else{
+
+alert(data.message);
+
+}
+
+});
+
+</script>
+
 </body>
+
 </html>
